@@ -1,66 +1,21 @@
 <template>
-  <div class="container" :class="{ 'landscape': isLandscape }">
-    <div class="row">
-      <div class="col" v-for="(item, index) in top" :key="index" :style="{ 'background-color': item.color }">
-        {{ item.text }}
-      </div>
-    </div>
-    <div class="row">
-      <div class="col" v-for="(item, index) in bottom" :key="index" :style="{ 'background-color': item.color }">
-        {{ item.text }}
-      </div>
-    </div>
-  </div>
+  <view class="container">
+    <view class="row">
+      <view class="col-4 bg-red">1</view>
+      <view class="col-4 bg-green">2</view>
+      <view class="col-4 bg-blue">3</view>
+    </view>
+    <view class="row">
+      <view class="col-12 bg-yellow">4</view>
+    </view>
+  </view>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      isLandscape: false,
-      top: [
-        { text: 'Column 1', color: '#f44336' },
-        { text: 'Column 2', color: '#2196f3' },
-        { text: 'Column 3', color: '#4caf50' },
-      ],
-      bottom: [
-        { text: 'Bottom Row', color: '#9c27b0' },
-      ]
-    }
-  },
-  mounted() {
-    window.addEventListener('orientationchange', this.handleOrientationChange)
-    this.handleOrientationChange()
-  },
-  destroyed() {
-    window.removeEventListener('orientationchange', this.handleOrientationChange)
-  },
-  methods: {
-    handleOrientationChange() {
-      this.isLandscape = window.orientation === 90 || window.orientation === -90;
-    }
-  }
-}
-</script>
 
 <style scoped>
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-}
-
-.landscape .row {
-  flex-direction: row;
-  height: 50%;
-}
-
-.landscape .row:first-child .col {
-  width: 33.33%;
-}
-
-.landscape .row:last-child .col {
-  width: 100%;
+  height: 100%;
 }
 
 .row {
@@ -68,11 +23,41 @@ export default {
   flex: 1;
 }
 
-.col {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  color: #fff;
+.col-4 {
+  flex-basis: 33.33%;
+}
+
+.col-12 {
+  flex-basis: 100%;
+}
+
+@media screen and (orientation: landscape) {
+  .row {
+    flex-direction: row;
+  }
+
+  .col-4 {
+    flex-basis: 25%;
+  }
+
+  .col-12 {
+    flex-basis: 50%;
+  }
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.bg-green {
+  background-color: green;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-yellow {
+  background-color: yellow;
 }
 </style>
