@@ -16,7 +16,7 @@
 					心率监测{{mbmpShow}}次/分钟(BMP)
 				</view>
 				<echarts :option="optiontwo"
-					style="right: 0%; height:calc(100% - 1px);width:calc(100% - 1px);">
+					style="right: 0%; height:100%;width:calc(100% - 1px);">
 				</echarts>
 				<!--<echarts :option="optiontwo2" style="height:108px;width: 180px;transform:rotate(90deg);"></echarts>-->
 			</view>
@@ -558,6 +558,7 @@
 		display: flex;
 		flex-direction: row;
 		flex: 1;
+		height: 50%;
 	}
 
 	.top-item {
@@ -579,6 +580,9 @@
 	.bottom-container {
 		flex: 1;
 		background-color: black;
+		display:flex;
+		flex-direction:column;
+		height: 50%;
 	}
 
 	.bottom-item {
@@ -587,7 +591,7 @@
 	}
 	@media screen and (orientation: landscape) {
 	  .bottom-item {
-	    height: 50%; // 设置一个固定高度
+	    height: 100%; // 设置一个固定高度
 			width: 100%;
 	  }
 	}
