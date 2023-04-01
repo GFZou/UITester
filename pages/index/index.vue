@@ -29,7 +29,7 @@
 				<view
 					style="background-image: url('/static/human2.png'); background-size:cover ; background-position: left center;height:216px;width: 200px;">
 					<echarts :option="optionthree"
-						style="height:calc(100% - 1px);width:calc(100% - 1px);transform: rotate(180deg) scale(1, -1);">
+						style="height:100vh;width:100vh;transform: rotate(180deg) scale(1, -1);">
 					</echarts>
 				</view>
 			</view>
@@ -38,7 +38,7 @@
 		<view class="bottom-container">
 			<view class="bottom-item">
 				<!-- <view style="transform:rotate(90deg);"><text style="color:'#e82107'">左</text></view> -->
-				<echarts :option="option" style="height:100%;width:100%"></echarts>
+				<echarts :option="option" style="right:0%;transform:rotate(-90deg);height:100%;width:100%"></echarts>
 				<!-- <view style="transform:rotate(90deg);"><text style="color:'#e82107'">右</text></view> -->
 			</view>
 		</view>
@@ -92,8 +92,12 @@
 		// beforeDestroy() {
 		// 	this.ws && this.ws.closeSocket();
 		// 	},
+		destroyed(){
+			window.removeEventListener('resize',this.handleResize);
+		},
 		mounted() {
-			this.optionWidth = uni.getSystemInfoSync().windowWidth / 2;
+			window.addEventListener('resize', this.handleResize)
+			this.optionWidth = uni.getSystemInfoSync().windowWidth;
 			this.optionHeight = uni.getSystemInfoSync().windowHeight;
 			console.log("窗体宽度和高度是：", this.optionWidth, this.optionHeight);
 			//this.logstatrtone();
@@ -131,6 +135,16 @@
 			//https://blog.csdn.net/sinat_35272898/article/details/122511603
 		},
 		methods: {
+			//
+			handleResize(){
+				//判断是否处于横屏的状态，如果是竖屏则进行横屏的设定
+				const isLandscape = window.innerWidth>window.innerHeight;
+				if(isLandscape == false)
+				{
+					//如果是竖屏则进行切换成横屏
+					uni.setScreenOrientation({orientation:'Landscape'})
+				}
+			},
 			//右上角的图一
 			logstatrtone() {
 				this.optionone = {
@@ -549,7 +563,7 @@
 <style>
 	.container {
 		width: 100%;
-		height: 100%;
+		height: 100vh;
 		display: flex;
 		flex-direction: column;
 	}
@@ -558,7 +572,7 @@
 		display: flex;
 		flex-direction: row;
 		flex: 1;
-		height: 50%;
+		height: 50vh;/*占居容器50%的高度*/
 	}
 
 	.top-item {
@@ -582,7 +596,7 @@
 		background-color: black;
 		display:flex;
 		flex-direction:column;
-		height: 50%;
+		height: 50vh;
 	}
 
 	.bottom-item {
